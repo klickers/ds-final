@@ -1,5 +1,117 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "@/layouts/Layout.astro"
+
+const links = [
+	{ href: "#model-performance", text: "Model Performance" },
+	{ href: "#chat-with-the-llm", text: "Chat with the LLM" },
+]
+
+const models = [
+	{
+		name: "Simple Model",
+		color: "green",
+		mae: 5.22,
+		r2: 0.1649,
+		yearsPercent: 61.1,
+	},
+	{
+		name: "K-fold Model",
+		color: "green",
+		mae: 5.23,
+		r2: 0.1613,
+		yearsPercent: 60.8,
+	},
+	{
+		name: "Enhanced Simple Model",
+		color: "purple",
+		mae: 5.2,
+		r2: 0.1843,
+		yearsPercent: 59.8,
+	},
+	{
+		name: "Enhanced K-fold Model",
+		color: "green",
+		mae: 5.23,
+		r2: 0.1661,
+		yearsPercent: 61.0,
+	},
+]
 ---
 
-<Layout />
+<Layout>
+	<main>
+		<div
+			style="background: linear-gradient(180.00deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 1) 100%), linear-gradient(90deg, var(--color-peach), var(--color-pink) 100%);"
+		>
+			<section class="pt-36 pb-52">
+				<h1 class="max-w-4xl mx-auto">
+					What does your dating profile say about your age?
+				</h1>
+				<p class="text-lg max-w-2xl mx-auto">
+					We dug through, experimented with, and analyzed data from
+					OkCupid for this final project. Experience the data for
+					yourself below!
+				</p>
+				<nav class="pill mt-24">
+					<ul class="font-light flex gap-6">
+						{
+							links.map((link) => (
+								<li>
+									<a href={link.href}>{link.text}</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+			</section>
+		</div>
+		<section
+			id="model-performance"
+			class="pt-24 pb-36"
+		>
+			<h2>Model Performance Comparisons</h2>
+			<p>Something goes here.</p>
+			<div class="grid grid-cols-4 gap-6 mt-10">
+				{
+					models.map((model) => (
+						<div class={`card card--${model.color}`}>
+							<h3>{model.name}</h3>
+							<table>
+								<thead>
+									<tr>
+										<td>MAE</td>
+										<td>
+											R<sup>2</sup>
+										</td>
+										<td>&plusmn; 5 years</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>{model.mae}</td>
+										<td>{model.r2}</td>
+										<td>{model.yearsPercent}%</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					))
+				}
+			</div>
+		</section>
+		<section
+			id="chat-with-the-llm"
+			class="pt-20 pb-36"
+		>
+			<h2>Chat with the LLM</h2>
+			<p>Does it beat our models? Take a turn and see!</p>
+			<div
+				class="bg-white relative rounded-3xl border-gradient-1 p-6 mt-12 h-screen max-h-[700px]"
+			>
+				<div class="pill absolute bottom-16 left-6 right-6">
+					<p class="mb-0">Type something...</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>

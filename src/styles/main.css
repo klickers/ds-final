@@ -1,1 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap");
 @import "tailwindcss";
+
+@theme {
+	--color-green: rgba(222, 242, 201, 1);
+	--color-green-10: rgba(222, 242, 201, 0.1);
+	--color-peach: rgba(255, 234, 184, 1);
+	--color-pink: rgba(251, 219, 255, 1);
+	--color-purple: rgba(217, 221, 255, 1);
+	--color-purple-10: rgba(217, 221, 255, 0.1);
+}
+
+:root {
+	--gradient-1: linear-gradient(
+		90deg,
+		var(--color-peach),
+		var(--color-pink) 100%
+	);
+}
+
+@layer base {
+	html {
+		@apply font-[Plus_Jakarta_Sans] scroll-smooth;
+	}
+
+	section {
+		@apply mx-auto px-8;
+		max-width: theme("screens.xl");
+	}
+
+	h1,
+	h2,
+	h1 + p,
+	h2 + p {
+		@apply text-center;
+	}
+
+	h1 {
+		@apply font-[Philosopher] text-7xl font-bold italic mb-16;
+	}
+
+	h2 {
+		@apply text-4xl font-semibold mb-6;
+	}
+
+	h3 {
+		@apply text-lg font-semibold mb-4;
+	}
+
+	p {
+		@apply mb-3;
+	}
+
+	table {
+		@apply w-full;
+
+		thead {
+			@apply font-medium;
+		}
+	}
+}
+
+@layer components {
+	.card {
+		@apply border-4 rounded-3xl p-6;
+
+		td {
+			@apply pr-4;
+		}
+	}
+	.card--green {
+		@apply border-(--color-green) bg-(--color-green-10);
+	}
+	.card--purple {
+		@apply border-(--color-purple) bg-(--color-purple-10);
+	}
+
+	.pill {
+		@apply rounded-full bg-white w-full mx-auto max-w-5xl px-6 py-4;
+		box-shadow: 0px 24px 50px 0px rgba(17, 12, 46, 0.15);
+	}
+}
+
+@layer utilities {
+	.border-gradient-1 {
+		@apply bg-clip-padding border-transparent border-4 relative box-border;
+		&:before {
+			content: "";
+			@apply absolute top-0 right-0 bottom-0 left-0 -z-10 -m-1;
+			border-radius: inherit;
+			background: linear-gradient(
+				90deg,
+				var(--color-peach),
+				var(--color-pink) 100%
+			);
+		}
+	}
+}

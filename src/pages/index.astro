@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+import AgeHistogram from "@/components/AgeHistogram.astro"
 
 const links = [
 	{ href: "#model-performance", text: "Model Performance" },
@@ -65,9 +66,47 @@ const models = [
 				</nav>
 			</section>
 		</div>
+		<section class="pt-20 pb-36">
+			<h2>Data Quality Checks</h2>
+			<p>(Blurb about reality checks for data)</p>
+			<section class="flex gap-16 items-center mt-10 card card--pink">
+				<div class="w-1/2">
+					<h3>Age Distribution</h3>
+					<p>
+						We plotted a histogram of user ages to verify that the
+						age distribution makes sense for an online dating
+						platform. As we hypothesized, most users fall on the
+						younger side, around 20-40 years of age, and there are
+						few users above 60 or below 18. This is a useful reality
+						check because it helps ensure that the age data is
+						reasonable and free from obvious errors (such as
+						implausibly high or low ages), which could otherwise
+						distort our predictive model.
+					</p>
+				</div>
+				<div class="w-1/2">
+					<AgeHistogram />
+				</div>
+			</section>
+			<section class="flex gap-16 items-center mt-10 card card--pink">
+				<div class="w-1/2">
+					<h3>Sex Drive Distribution</h3>
+					<p>
+						For another sanity check we compared sex drive to the
+						question “Regardless of future plans, what's more
+						interesting to you right now?” (Love/Sex). In the graph
+						we show the people in the top 20% by sex drive, and in
+						all bins in the histogram the preference is for sex,
+						growing much more clear as the sex drive rises! Very
+						fitting for users with the highest sex drive.
+					</p>
+				</div>
+				<div class="w-1/2"></div>
+			</section>
+		</section>
 		<section
 			id="model-performance"
-			class="pt-24 pb-36"
+			class="pt-20 pb-36"
 		>
 			<h2>Model Performance Comparisons</h2>
 			<p>Something goes here.</p>

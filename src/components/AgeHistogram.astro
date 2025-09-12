@@ -1,0 +1,265 @@
+---
+// // AgeHistogram.astro
+// import { db, UserProfile } from "astro:db"
+// import { sql, count } from "drizzle-orm"
+
+// // Fetch binned age data directly from database
+// async function getAgeBins(binSize = 5) {
+// 	try {
+// 		// Get min and max ages first to determine bin range
+// 		const [minMaxResult] = await db
+// 			.select({
+// 				minAge: sql`MIN(${UserProfile.age})`.as("minAge"),
+// 				maxAge: sql`MAX(${UserProfile.age})`.as("maxAge"),
+// 				totalUsers: count().as("totalUsers"),
+// 			})
+// 			.from(UserProfile)
+// 			.where(
+// 				sql`${UserProfile.age} IS NOT NULL AND ${UserProfile.age} > 0 AND ${UserProfile.age} < 120`
+// 			)
+
+// 		const { minAge, maxAge, totalUsers } = minMaxResult
+
+// 		if (!minAge || !maxAge) {
+// 			return { bins: [], counts: [], totalUsers: 0 }
+// 		}
+
+// 		// Calculate bins and get counts for each bin using a single query
+// 		const startAge = Math.floor(minAge / binSize) * binSize
+// 		const endAge = Math.ceil(maxAge / binSize) * binSize
+
+// 		const bins = []
+// 		const binQueries = []
+
+// 		// Build the bin ranges and corresponding SQL cases
+// 		for (let age = startAge; age < endAge; age += binSize) {
+// 			const binLabel = `${age}-${age + binSize - 1}`
+// 			bins.push(binLabel)
+// 			binQueries.push(
+// 				sql`SUM(CASE WHEN ${UserProfile.age} >= ${age} AND ${UserProfile.age} < ${age + binSize} THEN 1 ELSE 0 END)`.as(
+// 					`bin_${age}`
+// 				)
+// 			)
+// 		}
+
+// 		// Execute single query to get all bin counts
+// 		const [countsResult] = await db
+// 			.select(
+// 				Object.fromEntries(
+// 					binQueries.map((query, i) => [
+// 						`bin_${startAge + i * binSize}`,
+// 						query,
+// 					])
+// 				)
+// 			)
+// 			.from(UserProfile)
+// 			.where(
+// 				sql`${UserProfile.age} IS NOT NULL AND ${UserProfile.age} > 0 AND ${UserProfile.age} < 120`
+// 			)
+
+// 		// Extract counts in the correct order
+// 		const counts = bins.map((_, i) => {
+// 			const binAge = startAge + i * binSize
+// 			return parseInt(countsResult[`bin_${binAge}`] || 0)
+// 		})
+
+// 		return { bins, counts, totalUsers }
+// 	} catch (error) {
+// 		console.error("Error fetching binned age data from database:", error)
+// 		// Return sample data as fallback
+// 		const sampleBins = [
+// 			"18-22",
+// 			"23-27",
+// 			"28-32",
+// 			"33-37",
+// 			"38-42",
+// 			"43-47",
+// 			"48-52",
+// 			"53-57",
+// 			"58-62",
+// 			"63-67",
+// 		]
+// 		const sampleCounts = sampleBins.map(
+// 			() => Math.floor(Math.random() * 100) + 50
+// 		)
+// 		return { bins: sampleBins, counts: sampleCounts, totalUsers: 1000 }
+// 	}
+// }
+
+// const { bins, counts, totalUsers } = await getAgeBins()
+// console.log("Bins", bins)
+// console.log("counts", counts)
+// console.log("totalUsers", totalUsers)
+
+const bins = [
+		"15-19",
+		"20-24",
+		"25-29",
+		"30-34",
+		"35-39",
+		"40-44",
+		"45-49",
+		"50-54",
+		"55-59",
+		"60-64",
+		"65-69",
+		"70-74",
+		"75-79",
+		"80-84",
+		"85-89",
+		"90-94",
+		"95-99",
+	],
+	counts = [
+		1437, 9835, 18512, 16288, 10196, 5546, 2749, 1162, 429, 127, 48, 13, 5,
+		2, 1, 6, 7,
+	],
+	totalUsers = 66365
+---
+
+<div
+	id="age-histogram-container"
+	class="w-full h-96 p-4"
+>
+	<canvas id="age-histogram-chart"></canvas>
+	<!-- <div class="mb-4 text-center">
+		<p class="text-sm text-gray-600">
+			Total Users: {totalUsers.toLocaleString()}
+		</p>
+	</div> -->
+</div>
+
+<script
+	is:inline
+	src="https://cdn.jsdelivr.net/npm/chart.js"
+></script>
+<script is:inline define:vars={{ bins, counts, totalUsers }}>
+	function initChart() {
+		const ctx = document.getElementById("age-histogram-chart")
+
+		new Chart(ctx, {
+			type: "bar",
+			data: {
+				labels: bins,
+				datasets: [
+					{
+						label: "Number of Users",
+						data: counts,
+						backgroundColor: "#C0BBFF",
+						borderColor: "#C0BBFF",
+						borderWidth: 1,
+						borderRadius: 6,
+						borderSkipped: false,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					title: {
+						display: true,
+						text: "User Age Distribution",
+						font: {
+							size: 18,
+							weight: "bold",
+							family: "Plus Jakarta Sans, sans-serif",
+						},
+					},
+					legend: {
+						display: false,
+					},
+					tooltip: {
+						callbacks: {
+							title: function (context) {
+								return `Age Range: ${context[0].label}`
+							},
+							label: function (context) {
+								const percentage = (
+									(context.parsed.y / totalUsers) *
+									100
+								).toFixed(1)
+								return [
+									`Users: ${context.parsed.y.toLocaleString()}`,
+									`Percentage: ${percentage}%`,
+								]
+							},
+						},
+					},
+				},
+				scales: {
+					x: {
+						title: {
+							display: true,
+							text: "Age Range",
+							font: {
+								size: 14,
+								weight: "bold",
+								family: "Plus Jakarta Sans, sans-serif",
+							},
+						},
+						ticks: {
+							font: {
+								family: "Plus Jakarta Sans, sans-serif",
+							},
+						},
+						grid: {
+							display: false,
+						},
+					},
+					y: {
+						title: {
+							display: true,
+							text: "Number of Users",
+							font: {
+								size: 14,
+								weight: "bold",
+								family: "Plus Jakarta Sans, sans-serif",
+							},
+						},
+						ticks: {
+							font: {
+								family: "Plus Jakarta Sans, sans-serif",
+							},
+						},
+						beginAtZero: true,
+						grid: {
+							color: "rgba(0, 0, 0, 0.1)",
+						},
+						ticks: {
+							callback: function (value) {
+								return value.toLocaleString()
+							},
+						},
+					},
+				},
+				interaction: {
+					intersect: false,
+					mode: "index",
+				},
+				animation: {
+					duration: 1000,
+					easing: "easeInOutQuart",
+				},
+			},
+		})
+	}
+
+	// Initialize when DOM is loaded
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initChart)
+	} else {
+		initChart()
+	}
+</script>
+
+<style>
+	#age-histogram-container {
+		position: relative;
+		height: 300px;
+	}
+
+	canvas {
+		max-height: 100%;
+	}
+</style>

@@ -3,9 +3,11 @@
 	"include": [".astro/types.d.ts", "**/*"],
 	"exclude": ["dist"],
 	"compilerOptions": {
-		"baseUrl": ".", // base directory to resolve non-relative imports
+		"baseUrl": ".",
 		"paths": {
-			"@/*": ["src/*"] // @/... will map to <projectRoot>/src/...
-		}
+			"@/*": ["src/*"]
+		},
+		"jsx": "react-jsx",
+		"jsxImportSource": "react"
 	}
 }

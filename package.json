@@ -1,16 +1,27 @@
 {
-  "name": "dsproj",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.1.13",
-    "astro": "^5.13.7",
-    "tailwindcss": "^4.1.13"
-  }
+	"name": "dsproj",
+	"type": "module",
+	"version": "0.0.1",
+	"scripts": {
+		"dev": "astro dev --remote",
+		"build": "astro build --remote",
+		"preview": "astro preview",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/db": "^0.17.2",
+		"@astrojs/react": "^4.3.1",
+		"@libsql/client": "^0.15.15",
+		"@tailwindcss/vite": "^4.1.13",
+		"@types/react": "^19.1.13",
+		"@types/react-dom": "^19.1.9",
+		"astro": "^5.13.7",
+		"chart.js": "^4.5.0",
+		"csv-parse": "^6.1.0",
+		"csv-parser": "^3.2.0",
+		"papaparse": "^5.5.3",
+		"react": "^19.1.1",
+		"react-dom": "^19.1.1",
+		"tailwindcss": "^4.1.13"
+	}
 }

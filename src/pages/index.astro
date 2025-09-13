@@ -3,8 +3,11 @@ import Layout from "@/layouts/Layout.astro"
 import AgeHistogram from "@/components/AgeHistogram.astro"
 
 const links = [
-	{ href: "#model-performance", text: "Model Performance" },
-	{ href: "#chat-with-the-llm", text: "Chat with the LLM" },
+	// { href: "#model-performance", text: "Model Performance" },
+	// { href: "#chat-with-the-llm", text: "Chat with the LLM" },
+	{ href: "#!", text: "Dataset" },
+	{ href: "#!", text: "Models & LLM" },
+	{ href: "#!", text: "Interactive Games" },
 ]
 
 const models = [
@@ -53,8 +56,8 @@ const models = [
 					OkCupid for this final project. Experience the data for
 					yourself below!
 				</p>
-				<nav class="pill mt-24">
-					<ul class="font-light flex gap-6">
+				<nav class="pill mt-24 max-w-none w-fit">
+					<ul class="font-light flex justify-center gap-6">
 						{
 							links.map((link) => (
 								<li>
@@ -66,6 +69,33 @@ const models = [
 				</nav>
 			</section>
 		</div>
+		<section class="pt-24 pb-36">
+			<h2>About the Dataset</h2>
+			<section class="flex gap-16 items-center mt-10 mx-auto">
+				<div class="w-1/2">
+					<p>
+						We used a set of user profiles and survey responses
+						scraped from the OkCupid dating platform in 2015-2016.
+						It contains approximately 60,000 user records with over
+						2600 unique survey questions. The data is ~1GB in size
+						and structured in CSV format across multiple files: user
+						profiles containing demographics, personality traits,
+						preferences and question answer options, and a question
+						file with survey question text and answer options.
+					</p>
+					<div class="mt-10">
+						<a
+							href="https://mega.nz/#F!QIpXkL4Q!b3QXepE6tgyZ3zDhWbv1eg"
+							class="button"
+							target="_blank"
+						>
+							View Dataset
+						</a>
+					</div>
+				</div>
+				<div class="w-1/2"></div>
+			</section>
+		</section>
 		<section class="pt-20 pb-36">
 			<h2>Data Quality Checks</h2>
 			<p>(Blurb about reality checks for data)</p>
@@ -104,6 +134,7 @@ const models = [
 				<div class="w-1/2"></div>
 			</section>
 		</section>
+		<!-- TODO: SECTION: Data Insights / Demographics -->
 		<section
 			id="model-performance"
 			class="pt-20 pb-36"
@@ -138,7 +169,7 @@ const models = [
 				}
 			</div>
 		</section>
-		<section
+		<!-- <section
 			id="chat-with-the-llm"
 			class="pt-20 pb-36"
 		>
@@ -151,7 +182,7 @@ const models = [
 					<p class="mb-0">Type something...</p>
 				</div>
 			</div>
-		</section>
+		</section> -->
 	</main>
 	<footer class="bg-black text-white p-6 pt-8">
 		<section>

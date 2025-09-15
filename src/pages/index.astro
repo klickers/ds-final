@@ -51,7 +51,7 @@ const models = [
 				<h1 class="max-w-4xl mx-auto">
 					What does your dating profile say about your age?
 				</h1>
-				<p class="text-lg max-w-2xl mx-auto">
+				<p class="text-lg max-w-2xl">
 					We dug through, experimented with, and analyzed data from
 					OkCupid for this final project. Experience the data for
 					yourself below!
@@ -98,7 +98,12 @@ const models = [
 		</section>
 		<section class="pt-20 pb-36">
 			<h2>Data Quality Checks</h2>
-			<p>(Blurb about reality checks for data)</p>
+			<p class="max-w-4xl">
+				Before developing predictive models, we conducted essential
+				exploratory data analysis to understand our dataset's
+				characteristics and validate our assumptions about the user
+				population.
+			</p>
 			<section class="flex gap-16 items-center mt-10 card card--pink">
 				<div class="w-1/2">
 					<h3>Age Distribution</h3>
@@ -140,8 +145,13 @@ const models = [
 			class="pt-20 pb-36"
 		>
 			<h2>Model Performance Comparisons</h2>
-			<p>Something goes here.</p>
-			<div class="grid grid-cols-3 gap-6 mt-10">
+			<p class="max-w-4xl">
+				Our approach systematically explores four distinct neural
+				network architectures, progressing from simple baseline models
+				to sophisticated ensemble methods with advanced feature
+				engineering.
+			</p>
+			<div class="grid grid-cols-4 gap-6 mt-10">
 				{
 					models.map((model) => (
 						<div class={`card card--${model.color}`}>

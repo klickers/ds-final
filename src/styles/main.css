@@ -52,6 +52,11 @@
 		@apply text-lg font-semibold mb-4;
 	}
 
+	h1 + p,
+	h2 + p {
+		@apply mx-auto;
+	}
+
 	p {
 		@apply mb-3 leading-relaxed;
 	}

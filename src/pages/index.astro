@@ -5,9 +5,9 @@ import AgeHistogram from "@/components/AgeHistogram.astro"
 const links = [
 	// { href: "#model-performance", text: "Model Performance" },
 	// { href: "#chat-with-the-llm", text: "Chat with the LLM" },
-	{ href: "#!", text: "Dataset" },
-	{ href: "#!", text: "Models & LLM" },
-	{ href: "#!", text: "Interactive Games" },
+	{ href: "#dataset", text: "Dataset" },
+	{ href: "#models", text: "Models & LLM" },
+	{ href: "#games", text: "Interactive Games" },
 ]
 
 const models = [
@@ -69,7 +69,10 @@ const models = [
 				</nav>
 			</section>
 		</div>
-		<section class="pt-24 pb-36">
+		<section
+			id="dataset"
+			class="pt-24 pb-36"
+		>
 			<h2>About the Dataset</h2>
 			<section class="flex gap-16 items-center mt-10 mx-auto">
 				<div class="w-1/2">
@@ -141,7 +144,7 @@ const models = [
 		</section>
 		<!-- TODO: SECTION: Data Insights / Demographics -->
 		<section
-			id="model-performance"
+			id="models"
 			class="pt-20 pb-36"
 		>
 			<h2>Model Performance Comparisons</h2>
@@ -184,8 +187,11 @@ const models = [
 			<p>Something goes here.</p>
 			<div class="grid grid-cols-3 gap-6 mt-10"></div>
 		</section> -->
-		<section class="pt-20 pb-36">
-			<h2>Beat the Models!</h2>
+		<section
+			id="games"
+			class="pt-20 pb-36"
+		>
+			<h2>Beat the Model!</h2>
 			<p>
 				Are you better at guessing ages than our model? Play this game
 				to find out!

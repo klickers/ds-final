@@ -53,6 +53,10 @@
 		@apply text-lg font-semibold mb-4;
 	}
 
+	h4 {
+		@apply font-bold mb-4;
+	}
+
 	h1 + p,
 	h2 + p {
 		@apply mx-auto;
@@ -78,7 +82,7 @@
 
 @layer components {
 	.button {
-		@apply rounded-full py-4 px-6 duration-300 font-medium;
+		@apply rounded-full py-4 px-6 duration-300 font-medium cursor-pointer;
 		background: linear-gradient(
 			90deg,
 			var(--color-peach),
@@ -130,5 +134,11 @@
 				var(--color-pink) 100%
 			);
 		}
+	}
+}
+
+.profile {
+	span {
+		@apply font-bold;
 	}
 }

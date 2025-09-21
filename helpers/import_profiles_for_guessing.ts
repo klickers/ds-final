@@ -4,9 +4,8 @@ import csv from "csv-parser"
 import { createClient } from "@libsql/client"
 
 const db = createClient({
-	url: "libsql://okcupid-cathzchen.aws-eu-west-1.turso.io",
-	authToken:
-		"eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJhIjoicnciLCJpYXQiOjE3NTc3MjIyODQsImlkIjoiNzBmNWI5MGQtZjQ5NS00NjdlLWIzYTEtMGM4ZmE4MDAxYmNhIiwicmlkIjoiNzBiMWNlYTEtOTIyNy00ZjljLWJlYTctMmNjZGQ3NzQ5NWI1In0.QWMfYaHCgLEZxvJiAeifGWq1xqrRJ7KcUU39grgZLKefuj5sL4jBmgTcShp1ek2jbHj5Z6m9U7mSbO0kGNI-DQ",
+	url: "",
+	authToken: "",
 })
 
 const BATCH_SIZE = 100

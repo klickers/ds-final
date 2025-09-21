@@ -47,10 +47,13 @@ const models = [
 		r2: 0.1661,
 		yearsPercent: "61.0",
 	},
-	// {
-	// 	name: "LLM-Based Model",
-	// 	color: "purple",
-	// },
+	{
+		name: "LLM-Based Model",
+		color: "purple",
+		mae: 6.75,
+		r2: 0.1121,
+		yearsPercent: "48.00",
+	},
 ]
 
 const initialProfile = {
@@ -191,7 +194,7 @@ const initialProfile = {
 				to sophisticated ensemble methods with advanced feature
 				engineering.
 			</p>
-			<div class="mt-10 grid grid-cols-4 gap-6">
+			<section class="mt-10 grid grid-cols-3 gap-6">
 				{
 					models.map(
 						(model) =>
@@ -224,7 +227,7 @@ const initialProfile = {
 							)
 					)
 				}
-			</div>
+			</section>
 			<!-- <section class="mt-10">
 				<table>
 					<thead>

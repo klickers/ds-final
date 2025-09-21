@@ -5,6 +5,7 @@
 	--color-green: rgba(222, 242, 201, 1);
 	--color-green-10: rgba(222, 242, 201, 0.1);
 	--color-peach: rgba(255, 234, 184, 1);
+	--color-peach-10: rgba(255, 234, 184, 0.1);
 	--color-pink: rgba(251, 219, 255, 1);
 	--color-pink-10: rgba(251, 219, 255, 0.1);
 	--color-purple: rgba(217, 221, 255, 1);
@@ -94,6 +95,9 @@
 	}
 	.card--green {
 		@apply border-(--color-green) bg-(--color-green-10);
+	}
+	.card--peach {
+		@apply border-(--color-peach) bg-(--color-peach-10);
 	}
 	.card--pink {
 		@apply border-(--color-pink) bg-(--color-pink-10);

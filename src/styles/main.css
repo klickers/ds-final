@@ -57,7 +57,8 @@
 		@apply mx-auto;
 	}
 
-	p {
+	p,
+	li {
 		@apply mb-3 leading-relaxed;
 	}
 

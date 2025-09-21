@@ -30,6 +30,7 @@ const GuesserProfile = defineTable({
 		lf_want: column.text(),
 		q9688: column.text(),
 		d_age: column.number(),
+		enhanced_predicted_age: column.number({ optional: true }),
 	},
 })
 

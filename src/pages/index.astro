@@ -68,7 +68,8 @@ const initialProfile = {
 	q35660: "-",
 	q16053: "-",
 	q9688: "-",
-	d_age: 0,
+	d_age: "-",
+	enhanced_predicted_age: "-",
 }
 ---
 
@@ -310,9 +311,9 @@ const initialProfile = {
 							{initialProfile.q179268}
 						</p>
 						<p id="god">
-							<span
-								>How important is religion/God in your life?</span
-							>
+							<span>
+								How important is religion/God in your life?
+							</span>
 							{initialProfile.q41}
 						</p>
 						<p id="scary">
@@ -359,6 +360,7 @@ const initialProfile = {
 							id="submit-guess"
 							class="button w-full mt-2 cursor-pointer"
 							data-real-age={initialProfile.d_age}
+							data-enhanced-age={initialProfile.enhanced_predicted_age}
 						>
 							Submit Guess
 						</button>
@@ -369,12 +371,12 @@ const initialProfile = {
 						id="model-guess-card"
 						class="card card--pink text-center hidden"
 					>
-						<h4>Our Model's Guesses</h4>
+						<h4>Our Model's Guess</h4>
 						<p
 							id="model-age"
 							class="text-4xl mb-0"
 						>
-							{initialProfile.d_age}
+							{initialProfile.enhanced_predicted_age}
 						</p>
 					</div>
 
@@ -459,10 +461,12 @@ const initialProfile = {
 			// Update guess data attributes
 			const submitBtn = document.getElementById("submit-guess")
 			submitBtn.dataset.realAge = profile.d_age
+			submitBtn.dataset.enhancedAge = profile.enhanced_predicted_age
 
 			// Update hidden cards
 			document.getElementById("real-age").textContent = profile.d_age
-			document.getElementById("model-age").textContent = profile.d_age
+			document.getElementById("model-age").textContent =
+				profile.enhanced_predicted_age
 
 			// Update other DOM elements for the profile
 			document.getElementById("gender").innerHTML =
@@ -531,15 +535,35 @@ const initialProfile = {
 	submitBtn.addEventListener("click", () => {
 		const userGuess = Number(guessInput.value)
 		const realAge = Number(submitBtn.dataset.realAge)
+		const enhancedAge = Number(submitBtn.dataset.enhancedAge)
 
 		if (isNaN(userGuess)) return
 
-		// Calculate feedback
-		const diff = Math.abs(userGuess - realAge)
+		// Calculate differences
+		const userDiff = Math.abs(userGuess - realAge)
+		const modelDiff = Math.abs(enhancedAge - realAge)
+
 		let feedback = ""
-		if (diff === 0) feedback = "Perfect! 🎯"
-		else if (diff <= 5) feedback = "So close! 🔥"
-		else feedback = "Better luck next time! 😅"
+
+		// Base feedback on closeness to the real age
+		if (userDiff === 0) {
+			feedback = "Perfect! 🎯"
+		} else if (userDiff <= 5) {
+			feedback = "So close! 🔥"
+		} else {
+			feedback = "Better luck next time! 😅"
+		}
+
+		// Add relative feedback vs. the model
+		if (modelDiff === 0 && userDiff !== 0) {
+			feedback += " The model nailed it, but you'll get it next time!"
+		} else if (userDiff < modelDiff) {
+			feedback += " You beat the model! 🏆"
+		} else if (userDiff > modelDiff) {
+			feedback += " The model was closer. 🤖"
+		} else {
+			feedback += " You and the model tied! ⚖️"
+		}
 
 		// Reveal cards and message
 		realCard.classList.remove("hidden")

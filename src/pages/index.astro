@@ -73,6 +73,8 @@ const initialProfile = {
 	q9688: "-",
 	d_age: "-",
 	enhanced_predicted_age: "-",
+	llm_predicted_age: "-",
+	llm_predicted_explanation: "-",
 }
 ---
 
@@ -369,17 +371,35 @@ const initialProfile = {
 						</button>
 					</div>
 
-					<!-- TODO: SET TO ACTUAL AGE -->
 					<div
 						id="model-guess-card"
 						class="card card--pink text-center hidden"
 					>
-						<h4>Our Model's Guess</h4>
+						<h4>Enhanced Model Guess</h4>
 						<p
 							id="model-age"
 							class="text-4xl mb-0"
 						>
 							{initialProfile.enhanced_predicted_age}
+						</p>
+					</div>
+
+					<div
+						id="llm-guess-card"
+						class="card card--pink text-center hidden"
+					>
+						<h4>LLM Model Guess</h4>
+						<p
+							id="llm-age"
+							class="text-4xl"
+						>
+							{initialProfile.llm_predicted_age}
+						</p>
+						<p
+							id="llm-explanation"
+							class="text-xs mb-0"
+						>
+							{initialProfile.llm_predicted_explanation}
 						</p>
 					</div>
 
@@ -479,14 +499,18 @@ const initialProfile = {
 			const profile = await res.json()
 
 			// Update guess data attributes
-			const submitBtn = document.getElementById("submit-guess")
-			submitBtn.dataset.realAge = profile.d_age
-			submitBtn.dataset.enhancedAge = profile.enhanced_predicted_age
+			// const submitBtn = document.getElementById("submit-guess")
+			// submitBtn.dataset.realAge = profile.d_age
+			// submitBtn.dataset.enhancedAge = profile.enhanced_predicted_age
 
 			// Update hidden cards
 			document.getElementById("real-age").textContent = profile.d_age
 			document.getElementById("model-age").textContent =
 				profile.enhanced_predicted_age
+			document.getElementById("llm-age").textContent =
+				profile.llm_predicted_age
+			document.getElementById("llm-explanation").textContent =
+				profile.llm_predicted_explanation
 
 			// Update other DOM elements for the profile
 			document.getElementById("gender").innerHTML =
@@ -549,6 +573,7 @@ const initialProfile = {
 	const guessInput = document.getElementById("user-guess")
 	const realCard = document.getElementById("real-age-card")
 	const modelCard = document.getElementById("model-guess-card")
+	const llmCard = document.getElementById("llm-guess-card")
 	const feedbackMsg = document.getElementById("feedback-message")
 	const playAgainBtn = document.getElementById("play-again")
 
@@ -574,20 +599,21 @@ const initialProfile = {
 			feedback = "Better luck next time! 😅"
 		}
 
-		// Add relative feedback vs. the model
-		if (modelDiff === 0 && userDiff !== 0) {
-			feedback += " The model nailed it, but you'll get it next time!"
-		} else if (userDiff < modelDiff) {
-			feedback += " You beat the model! 🏆"
-		} else if (userDiff > modelDiff) {
-			feedback += " The model was closer. 🤖"
-		} else {
-			feedback += " You and the model tied! ⚖️"
-		}
+		// // Add relative feedback vs. the model
+		// if (modelDiff === 0 && userDiff !== 0) {
+		// 	feedback += " The model nailed it, but you'll get it next time!"
+		// } else if (userDiff < modelDiff) {
+		// 	feedback += " You beat the model! 🏆"
+		// } else if (userDiff > modelDiff) {
+		// 	feedback += " The model was closer. 🤖"
+		// } else {
+		// 	feedback += " You and the model tied! ⚖️"
+		// }
 
 		// Reveal cards and message
 		realCard.classList.remove("hidden")
 		modelCard.classList.remove("hidden")
+		llmCard.classList.remove("hidden")
 		feedbackMsg.textContent = feedback
 		feedbackMsg.classList.remove("hidden")
 		playAgainBtn.classList.remove("hidden")
@@ -608,6 +634,7 @@ const initialProfile = {
 		submitBtn.disabled = false
 		realCard.classList.add("hidden")
 		modelCard.classList.add("hidden")
+		llmCard.classList.add("hidden")
 		feedbackMsg.classList.add("hidden")
 		playAgainBtn.classList.add("hidden")
 	})

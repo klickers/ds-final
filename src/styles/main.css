@@ -69,6 +69,10 @@
 		thead {
 			@apply font-medium;
 		}
+
+		td {
+			@apply pb-1;
+		}
 	}
 }
 

@@ -12,33 +12,45 @@ const links = [
 
 const models = [
 	{
+		hideInCards: true,
+		name: "Baseline (Mean Age Model)",
+		color: "purple",
+		mae: 6.45,
+		r2: "0.0000",
+		yearsPercent: 41.5,
+	},
+	{
 		name: "Simple Model",
-		color: "green",
+		color: "purple",
 		mae: 5.22,
 		r2: 0.1649,
 		yearsPercent: 61.1,
 	},
 	{
 		name: "K-fold Model",
-		color: "green",
+		color: "purple",
 		mae: 5.23,
 		r2: 0.1613,
 		yearsPercent: 60.8,
 	},
 	{
 		name: "Enhanced Simple Model",
-		color: "purple",
-		mae: 5.2,
+		color: "green",
+		mae: "5.20",
 		r2: 0.1843,
 		yearsPercent: 59.8,
 	},
 	{
 		name: "Enhanced K-fold Model",
-		color: "green",
+		color: "purple",
 		mae: 5.23,
 		r2: 0.1661,
-		yearsPercent: 61.0,
+		yearsPercent: "61.0",
 	},
+	// {
+	// 	name: "LLM-Based Model",
+	// 	color: "purple",
+	// },
 ]
 ---
 
@@ -160,33 +172,66 @@ const models = [
 				to sophisticated ensemble methods with advanced feature
 				engineering.
 			</p>
-			<div class="grid grid-cols-4 gap-6 mt-10">
+			<div class="mt-10 grid grid-cols-4 gap-6">
 				{
-					models.map((model) => (
-						<div class={`card card--${model.color}`}>
-							<h3>{model.name}</h3>
-							<table>
-								<thead>
-									<tr>
-										<td>MAE</td>
-										<td>
-											R<sup>2</sup>
-										</td>
-										<td>&plusmn; 5 years</td>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>{model.mae}</td>
-										<td>{model.r2}</td>
-										<td>{model.yearsPercent}%</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					))
+					models.map(
+						(model) =>
+							!model.hideInCards && (
+								<div class={`card card--${model.color}`}>
+									<h3>{model.name}</h3>
+									<table>
+										<thead>
+											<tr>
+												<td>MAE</td>
+												<td>
+													R<sup>2</sup>
+												</td>
+												<td>&plusmn; 5 years</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td class="pb-0">
+													{model.mae}
+												</td>
+												<td class="pb-0">{model.r2}</td>
+												<td class="pb-0">
+													{model.yearsPercent}%
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							)
+					)
 				}
 			</div>
+			<!-- <section class="mt-10">
+				<table>
+					<thead>
+						<tr class="font-semibold">
+							<td>Model</td>
+							<td>MAE</td>
+							<td>
+								R<sup>2</sup>
+							</td>
+							<td>&plusmn; 5 years</td>
+						</tr>
+					</thead>
+					<tbody>
+						{
+							models.map((model) => (
+								<tr>
+									<td>{model.name}</td>
+									<td>{model.mae}</td>
+									<td>{model.r2}</td>
+									<td>{model.yearsPercent}%</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</section> -->
 		</section>
 		<!-- <section class="pt-20 pb-36">
 			<h2>Can Our Models Guess Your Age?</h2>

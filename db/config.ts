@@ -9,6 +9,30 @@ const UserProfile = defineTable({
 	},
 })
 
+// profiles for guessing
+const GuesserProfile = defineTable({
+	columns: {
+		id: column.number({ primaryKey: true }),
+		row_index: column.number(),
+		q35: column.text(),
+		q358077: column.text(),
+		q179268: column.text(),
+		q41: column.text(),
+		q44639: column.text(),
+		q41953: column.text(),
+		q35660: column.text(),
+		gender: column.text(),
+		gender2: column.text(),
+		d_religion_type: column.text({ optional: true }),
+		d_drugs: column.text(),
+		q20930: column.text(),
+		q16053: column.text(),
+		lf_want: column.text(),
+		q9688: column.text(),
+		d_age: column.number(),
+	},
+})
+
 export default defineDb({
-	tables: { UserProfile },
+	tables: { UserProfile, GuesserProfile },
 })

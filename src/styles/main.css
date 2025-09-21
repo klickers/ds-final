@@ -78,6 +78,16 @@
 			@apply pb-1;
 		}
 	}
+
+	footer {
+		a {
+			@apply underline;
+
+			&:hover {
+				@apply no-underline;
+			}
+		}
+	}
 }
 
 @layer components {
